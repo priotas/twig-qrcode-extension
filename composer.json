@@ -2,7 +2,7 @@
     "name": "priotas/twig-qrcode-extension",
     "description": "A Twig extension to render inline qrcodes",
     "type": "library",
-    "license": "MIT",
+    "license": "Apache-2.0",
     "authors": [{
         "name": "Florian Reiss",
         "email": "florian.reiss@priotas.de"
