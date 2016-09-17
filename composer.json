@@ -1,5 +1,5 @@
 {
-    "name": "priotas/twig-qcode-extension",
+    "name": "priotas/twig-qrcode-extension",
     "description": "A Twig extension to render inline qrcodes",
     "type": "library",
     "license": "MIT",
