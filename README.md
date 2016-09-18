@@ -1,9 +1,16 @@
 [![Build Status](https://travis-ci.org/priotas/twig-qrcode-extension.svg?branch=master)](https://travis-ci.org/priotas/twig-qrcode-extension)
+[![Total Downloads](https://poser.pugx.org/priotas/twig-qrcode-extension/downloads)](https://packagist.org/packages/priotas/twig-qrcode-extension)
 
 # Overview
 
-+ A Twig extension for embedding inline qrcodes in Twig templates.
++ A Twig extension for embedding inline QR codes in Twig templates.
 + The standard filter output is a [DataURL](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs) string of the processed text.
+
+
+```
+composer require priotas/twig-qrcode-extension
+```
+
 
 ```html
 <!-- index.html.twig -->
@@ -35,9 +42,9 @@ echo $twig->render('index.html.twig');
 | Option        |Type    |Default  | Description  |
 | ------------- |--------|---------| -------------|
 | type          |string  |png      | The image type. Available types are png, gif, jpeg, wbmp |
-| label         |string  |         | A label for the QrCode  |
-| padding       |integer |16       | The padding around the QRCode |
-| size          |integer |200      | The size of the image |
+| label         |string  |         | A label for the QR code  |
+| padding       |integer |16       | The padding around the QR code |
+| size          |integer |200      | The size of the QR code |
 
 
 # Dependencies
