@@ -35,7 +35,7 @@ echo $twig->render('index.html.twig');
 | Option        |Type    |Default  | Description  |
 | ------------- |--------|---------| -------------|
 | type          |string  |png      | The image type. Available types are png, gif, jpeg, wbmp |
-| label         |string  |         | A label for the the QrCode  |
+| label         |string  |         | A label for the QrCode  |
 | padding       |integer |16       | The padding around the QRCode |
 | size          |integer |200      | The size of the image |
 
