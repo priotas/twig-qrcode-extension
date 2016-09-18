@@ -51,7 +51,7 @@ class QrcodeExtensionTest extends \PHPUnit_Framework_TestCase
     /**
      * @return void
      */
-    public function parametersOrderingDoesNotMatter()
+    public function testParametersOrderingDoesNotMatter()
     {
         $wbmp = '{{ "moooooo"|qrcode(size=400,type="wbmp") }}';
         $result = $this->processify($wbmp);
