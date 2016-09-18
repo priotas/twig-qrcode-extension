@@ -22,7 +22,7 @@ class QrcodeExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $template = '{{ "http://kewl.example.com"|qrcode(size=200) }}';
         $result = $this->processify($template);
-        $this->assertEquals($result, 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOgAAADoAQMAAADfZzo7AAAABlBMVEX///8AAABVwtN+AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAzElEQVRYhe2VUQ7DMAhDff9Le2vACdV2gtcSKY38+AJDpTfg4YrvQ+saCpP2fSEXvek86qVe3xKjwGml6Cn0lINOc3uf31kA0d5d4/zZdRyayDa7qzw6PV8mWHkG02F17/ZTqcrr3fxjfWNpGt8laMtTqXuwnYeSxKQtqffYnnFx6SqAFZ/LuyRIetqe5F0bJFWVo42edSYqTdIYbTLNDyqSUxsqvd3uagyz4+hxt2fQqRufcWdTjQUe6yPpFDw2GpS2t2t7H0Slb4DjA6OJxrgh+lL8AAAAAElFTkSuQmCC');
+        $this->assertRegExp('/data:image\/png;base64,[a-zA-Z0-9+\/]+={0,2}$/', $result);
     }
 
     /**
