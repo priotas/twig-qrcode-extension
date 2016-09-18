@@ -1,11 +1,14 @@
 <?php
 
-namespace Priotas\Twig\Extensions;
+namespace Priotas\Twig\Extension;
 
 use Endroid\QrCode\QrCode as EndroidQrcode;
 
 class Qrcode extends \Twig_Extension
 {
+    const DEFAULT_IMAGE_SIZE = 200;
+    const DEFAULT_PADDING = 16;
+
     /**
      * Name of this extension.
      *
@@ -13,7 +16,7 @@ class Qrcode extends \Twig_Extension
      */
     public function getName()
     {
-        return 'qrcode';
+        return 'priotas/qrcode';
     }
 
     /**
@@ -30,21 +33,24 @@ class Qrcode extends \Twig_Extension
 
     /**
      * @return string
-     */ 
-    public function qrcode($value, $size=300, $type = EndroidQrcode::IMAGE_TYPE_PNG)
-    {        
+     */
+    public function qrcode(
+        $value, 
+        $type = EndroidQrcode::IMAGE_TYPE_PNG, 
+        $size=self::DEFAULT_IMAGE_SIZE,
+        $padding = self::DEFAULT_PADDING)
+    {
         try {
             $qrCode = (new EndroidQrcode())
                 ->setImageType($type)
-                ->setSize($size)
+                ->setPadding((int) $padding)
+                ->setSize((int) $size)
                 ->setText($value);
-            $data =\base64_encode($qrCode->get());
-        } catch(\Exception $e) {
-            throw $e;   
+            $dataUrl = $qrCode->getDataUri();
+        } catch (\Exception $e) {
+            throw $e;
         }
-        
-        $dataUrl = 'data:image/%s;base64,%s'; 
 
-        return sprintf($dataUrl, $type, $data);
+        return $dataUrl;
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Priotas\Twig\Tests;
 
-use Priotas\Twig\Extensions\QrCode;
+use Priotas\Twig\Extension\QrCode;
 
 class QrcodeExtensionTest extends \PHPUnit_Framework_TestCase
 {
@@ -12,33 +12,31 @@ class QrcodeExtensionTest extends \PHPUnit_Framework_TestCase
     public function testExtensionName()
     {
         $qrcode = new QrCode();
-        $this->assertEquals('qrcode', $qrcode->getName());
+        $this->assertEquals('priotas/qrcode', $qrcode->getName());
     }
 
+    /**
+     * @return void
+     */
     public function testSimpleQrcode()
     {
-        $template = '{{ "moooooo"|qrcode }}';
+        $template = '{{ "http://kewl.example.com"|qrcode(size=200) }}';
         $result = $this->processify($template);
-        $this->assertStringStartsWith('data:image/png;base64', $result);
+        $this->assertEquals($result, 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOgAAADoAQMAAADfZzo7AAAABlBMVEX///8AAABVwtN+AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAzElEQVRYhe2VUQ7DMAhDff9Le2vACdV2gtcSKY38+AJDpTfg4YrvQ+saCpP2fSEXvek86qVe3xKjwGml6Cn0lINOc3uf31kA0d5d4/zZdRyayDa7qzw6PV8mWHkG02F17/ZTqcrr3fxjfWNpGt8laMtTqXuwnYeSxKQtqffYnnFx6SqAFZ/LuyRIetqe5F0bJFWVo42edSYqTdIYbTLNDyqSUxsqvd3uagyz4+hxt2fQqRufcWdTjQUe6yPpFDw2GpS2t2t7H0Slb4DjA6OJxrgh+lL8AAAAAElFTkSuQmCC');
     }
 
+    /**
+     * @return void
+     */
     public function testValidImageTypes()
     {
-        $png = '{{ "moooooo"|qrcode(type="png") }}';
-        $result = $this->processify($png);
-        $this->assertStringStartsWith('data:image/png;base64', $result);
+        $validTypes = ['png', 'gif', 'jpeg', 'wbmp'];
 
-        $gif = '{{ "moooooo"|qrcode(type="gif") }}';
-        $result = $this->processify($gif);
-        $this->assertStringStartsWith('data:image/gif;base64', $result);
-
-        $jpeg = '{{ "moooooo"|qrcode(type="jpeg") }}';
-        $result = $this->processify($jpeg);
-        $this->assertStringStartsWith('data:image/jpeg;base64', $result);
-        
-        $wbmp = '{{ "moooooo"|qrcode(type="wbmp") }}';
-        $result = $this->processify($wbmp);
-        $this->assertStringStartsWith('data:image/wbmp;base64', $result);
+        \array_walk($validTypes, function ($value) {
+            $template = sprintf('{{ "moooooo"|qrcode(type="%s") }}', $value);
+            $result = $this->processify($template);
+            $this->assertStringStartsWith(sprintf('data:image/%s;base64', $value), $result);
+        });
     }
 
     /**
@@ -50,20 +48,45 @@ class QrcodeExtensionTest extends \PHPUnit_Framework_TestCase
         $result = $this->processify($lol);
     }
 
+    /**
+     * @return void
+     */
     public function parametersOrderingDoesNotMatter()
     {
         $wbmp = '{{ "moooooo"|qrcode(size=400,type="wbmp") }}';
         $result = $this->processify($wbmp);
         $this->assertStringStartsWith('data:image/wbmp;base64', $result);
+
+        $wbmp2 = '{{ "moooooo"|qrcode(type="wbmp",size=400) }}';
+        $result2 = $this->processify($wbmp2);
+        $this->assertStringStartsWith('data:image/wbmp;base64', $result2);
     }
 
-    private function processify($template, $data = array()) {
+    /**
+     * @return void
+     */
+    public function testSetAllAvailableOptions()
+    {
+        $template = '{{ "moooooo"|qrcode(type="png",size=100,padding=20) }}';
+        $result = $this->processify($template);
+         $this->assertStringStartsWith('data:image/png;base64', $result);
+    }
+
+    /**
+     * @return string
+     */
+    private function processify($template, $data = array())
+    {
         $twig = $this->twigify($template);
         $result = $twig->render('template', $data);
         return $result;
     }
 
-    private function twigify($template) {
+    /**
+     * @return \Twig_Environment
+     */
+    private function twigify($template)
+    {
         $loader = new \Twig_Loader_Array(array(
             'template' => $template,
         ));
