@@ -38,11 +38,14 @@ class Qrcode extends \Twig_Extension
         $value, 
         $type = EndroidQrcode::IMAGE_TYPE_PNG, 
         $size=self::DEFAULT_IMAGE_SIZE,
-        $padding = self::DEFAULT_PADDING)
+        $padding = self::DEFAULT_PADDING,
+        $label = ''
+        )
     {
         try {
             $qrCode = (new EndroidQrcode())
                 ->setImageType($type)
+                ->setLabel($label)
                 ->setPadding((int) $padding)
                 ->setSize((int) $size)
                 ->setText($value);

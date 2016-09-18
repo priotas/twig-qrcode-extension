@@ -1,9 +1,29 @@
 <!DOCTYPE html>
 <html>
-    <body>
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.2.3/foundation.css" />
+</head>
+
+<body>
+
+    <div class="row">
+        <h3>Simple example</h3>
 
         <img src="{{ 'http://kewl.example.com' | qrcode(size=200) }}" />
-    
-    </body>
-</html>
 
+        <hr />
+
+        <h3>URL with label</h3>
+
+        <form method="post">
+            <input value="{{ url }}" type="url" name="url" placeholder="Enter a valid url">
+            <input type="submit" value="Submit" class="button">
+        </form>
+
+        {% if url %}
+        <img src="{{ url | qrcode(size=200, label=url) }}" /> {% endif %}
+    </div>
+</body>
+
+</html>
