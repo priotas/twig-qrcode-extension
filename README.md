@@ -45,6 +45,7 @@ echo $twig->render('index.html.twig');
 | label         |string  |         | A label for the QR code  |
 | padding       |integer |16       | The padding around the QR code |
 | size          |integer |200      | The size of the QR code |
+| version       |integer |auto     | The version of the QR code. Range 1-40 |
 
 
 # Dependencies

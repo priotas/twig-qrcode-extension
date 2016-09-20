@@ -39,7 +39,8 @@ class Qrcode extends \Twig_Extension
         $type = EndroidQrcode::IMAGE_TYPE_PNG, 
         $size=self::DEFAULT_IMAGE_SIZE,
         $padding = self::DEFAULT_PADDING,
-        $label = ''
+        $label = '',
+        $version=null
         )
     {
         try {
@@ -48,7 +49,8 @@ class Qrcode extends \Twig_Extension
                 ->setLabel($label)
                 ->setPadding((int) $padding)
                 ->setSize((int) $size)
-                ->setText($value);
+                ->setText($value)
+                ->setVersion($version);
             $dataUrl = $qrCode->getDataUri();
         } catch (\Exception $e) {
             throw $e;

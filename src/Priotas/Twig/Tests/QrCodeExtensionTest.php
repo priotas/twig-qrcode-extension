@@ -67,7 +67,7 @@ class QrcodeExtensionTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetAllAvailableOptions()
     {
-        $template = '{{ "moooooo"|qrcode(type="png",size=100,padding=20,label="Okay") }}';
+        $template = '{{ "moooooo"|qrcode(type="png",size=100,padding=20,label="Okay",version=20) }}';
         $result = $this->processify($template);
         $this->assertStringStartsWith('data:image/png;base64', $result);
     }
