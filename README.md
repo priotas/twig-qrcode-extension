@@ -1,5 +1,4 @@
 [![Build Status](https://travis-ci.org/priotas/twig-qrcode-extension.svg?branch=master)](https://travis-ci.org/priotas/twig-qrcode-extension)
-[![Total Downloads](https://poser.pugx.org/priotas/twig-qrcode-extension/downloads)](https://packagist.org/packages/priotas/twig-qrcode-extension)
 
 # Overview
 
