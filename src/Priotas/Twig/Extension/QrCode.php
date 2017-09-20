@@ -4,7 +4,7 @@ namespace Priotas\Twig\Extension;
 
 use Endroid\QrCode\QrCode as EndroidQrcode;
 
-class Qrcode extends \Twig_Extension
+class QrCode extends \Twig_Extension
 {
     const DEFAULT_IMAGE_SIZE = 200;
     const DEFAULT_PADDING = 16;
