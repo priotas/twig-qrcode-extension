@@ -40,15 +40,15 @@ echo $twig->render('index.html.twig');
 
 | Option        |Type    |Default  | Description  |
 | ------------- |--------|---------| -------------|
-| type          |string  |png      | The image type. Available types are png, gif, jpeg, wbmp |
+| type          |string  |png      | The image type. Available types are png,eps,svg|
 | label         |string  |         | A label for the QR code  |
-| padding       |integer |16       | The padding around the QR code |
 | size          |integer |200      | The size of the QR code |
 | version       |integer |auto     | The version of the QR code. Range 1-40 |
+| svg           |string  |data_uri | How a SVG should be rendered.  **data_uri** is a data:svg+xml blob. **inline** is an inline svg tag |
 
 
 # Dependencies
 
-+ https://github.com/endroid/QrCode
++ https://github.com/endroid/qr-code
 + http://php.net/manual/en/book.image.php
 + http://twig.sensiolabs.org/

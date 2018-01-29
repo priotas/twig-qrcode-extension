@@ -3,6 +3,13 @@
 
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.2.3/foundation.css" />
+
+    <style>
+        svg rect {
+            fill: lime;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -14,6 +21,12 @@
 
         <hr />
 
+        <h3>Inline SVG</h3>
+
+        {{ 'http://kewl.example.com' | qrcode(size=200,type="svg",svg="inline") }}
+
+        <hr />
+
         <h3>URL with label</h3>
 
         <form method="post">
@@ -22,7 +35,8 @@
         </form>
 
         {% if url %}
-        <img src="{{ url | qrcode(size=200, label=url) }}" /> {% endif %}
+        <img src="{{ url | qrcode(size=200, label=url, type="png") }}" /> 
+        {% endif %}
     </div>
 </body>
 

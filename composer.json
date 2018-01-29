@@ -6,12 +6,12 @@
     "keywords": ["qrcode", "twig", "qr-code", "fun"],
     "authors": [{
         "name": "Florian Reiss",
-        "email": "florian.reiss@priotas.de"
+        "email": "oss@priotas.de"
     }],
     "require": {
-        "endroid/qrcode": "^1.7",
         "ext-gd": "*",
-        "twig/twig": "~1.20|~2.0"
+        "twig/twig": "~1.20|~2.0",
+        "endroid/qr-code": "^3.2"
     },
     "require-dev": {
         "phpunit/phpunit": "^5.5"
