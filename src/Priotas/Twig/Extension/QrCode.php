@@ -2,9 +2,13 @@
 
 namespace Priotas\Twig\Extension;
 
+use Endroid\QrCode\Exception\ValidationException;
 use Endroid\QrCode\Factory\QrCodeFactory;
+use Exception;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
 
-class QrCode extends \Twig_Extension
+class QrCode extends AbstractExtension
 {
     const DEFAULT_IMAGE_SIZE = 200;
     const DEFAULT_TYPE = 'png';
@@ -12,31 +16,18 @@ class QrCode extends \Twig_Extension
     const SVG_OUTPUT_DATA_URI = 'data_uri';
 
     /**
-     * Name of this extension.
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return 'priotas/qrcode';
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function getFilters()
     {
-        return array(
-            'qrcode' => new \Twig_SimpleFilter(
-                'qrcode',
-                array($this, 'qrcode'),
-                array('pre_escape' => 'html', 'is_safe' => array('html'))
-            ),
-        );
+        return [
+            new TwigFilter('qrcode', [$this, 'qrcode'])
+        ];
     }
 
     /**
      * @return string
+     * @throws ValidationException|Exception
      */
     public function qrcode(
         $text,
@@ -45,33 +36,30 @@ class QrCode extends \Twig_Extension
         $label = '',
         $version = null,
         $svg = self::SVG_OUTPUT_DATA_URI
-        ) {
-        try {
-            $data = '';
-            $options = [
-                'writer' => $type,
-                'label' => $label
-            ];
-            $factory = new QrCodeFactory();
-            $qrCode = $factory->create($text, $options);
-            if ($type === 'svg') {
-                if ($svg === self::SVG_OUTPUT_DATA_URI) {
-                    $data = $qrCode->writeDataUri();
-                } elseif ($svg === self::SVG_OUTPUT_INLINE) {
-                    $text = $qrCode->writeString();
-                    $data = substr($text, strpos($text, "\n")+1);
-                } else {
-                    throw new \InvalidArgumentException(
-                        sprintf('The svg options can either be "%s" or "%s"', self::SVG_OUTPUT_DATA_URI, self::SVG_OUTPUT_INLINE)
-                    );
-                }
-            } else {
-                $data = $qrCode->writeDataUri();
-            }
-        } catch (\Exception $e) {
-            throw $e;
+    ) {
+        $options = [
+            'writer' => $type,
+            'label' => $label
+        ];
+
+        $factory = new QrCodeFactory();
+        $qrCode = $factory->create($text, $options);
+
+        if ($type !== 'svg') {
+            return $qrCode->writeDataUri();
         }
 
-        return $data;
+        switch ($svg) {
+            case self::SVG_OUTPUT_DATA_URI:
+                return $qrCode->writeDataUri();
+            case self::SVG_OUTPUT_INLINE:
+                $text = $qrCode->writeString();
+                return substr($text, strpos($text, "\n") + 1);
+            default:
+                throw new \InvalidArgumentException(
+                    sprintf('The svg options can either be "%s" or "%s"', self::SVG_OUTPUT_DATA_URI, self::SVG_OUTPUT_INLINE)
+                );
+        }
+
     }
 }

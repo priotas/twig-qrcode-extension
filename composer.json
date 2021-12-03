@@ -10,7 +10,7 @@
     }],
     "require": {
         "ext-gd": "*",
-        "twig/twig": "~1.20|~2.0",
+        "twig/twig": "^3.0",
         "endroid/qr-code": "^3.2"
     },
     "require-dev": {
