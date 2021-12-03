@@ -17,7 +17,14 @@
     <div class="row">
         <h3>Simple example</h3>
 
-        <img src="{{ 'http://kewl.example.com' | qrcode(size=200) }}" />
+        <img src="{{ 'http://kewl.example.com' | qrcode(size=100) }}" />
+
+        <hr />
+
+        <h3>EPC example</h3>
+
+        {% set EPC = 'BCD\n001\n1\nSCT\nBYLADEM1001\nMax Mustermann\nDE02120300000000202051\nEUR100,00\n\n\n\n' %}
+        <img src="{{ EPC | qrcode(size=200) }}" />
 
         <hr />
 
@@ -35,7 +42,7 @@
         </form>
 
         {% if url %}
-        <img src="{{ url | qrcode(size=200, label=url, type="png") }}" /> 
+        <img src="{{ url | qrcode(size=20, label=url, type="png") }}" />
         {% endif %}
     </div>
 </body>

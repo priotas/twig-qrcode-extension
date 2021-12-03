@@ -39,7 +39,8 @@ class QrCode extends AbstractExtension
     ) {
         $options = [
             'writer' => $type,
-            'label' => $label
+            'label' => $label,
+            'size' => $size
         ];
 
         $factory = new QrCodeFactory();
