@@ -19,7 +19,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Priotas\\Twig\\": "src/Priotas/Twig/"
+            "Priotas\\Twig\\": "twig-qrcode-extension/src/Priotas/Twig/"
         }
     }
 }
