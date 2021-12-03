@@ -4,17 +4,12 @@ namespace Priotas\Twig\Tests;
 
 use PHPUnit\Framework\TestCase;
 use Priotas\Twig\Extension\QrCode;
+use Twig\Environment;
+use Twig\Error\RuntimeError;
+use Twig\Loader\ArrayLoader;
 
 class QrcodeExtensionTest extends TestCase
 {
-    /**
-     * @return void
-     */
-    public function testExtensionName()
-    {
-        $qrcode = new QrCode();
-        $this->assertEquals('priotas/qrcode', $qrcode->getName());
-    }
 
     /**
      * @return void
@@ -41,12 +36,12 @@ class QrcodeExtensionTest extends TestCase
     }
 
     /**
-     * @expectedException \Twig_Error_Runtime
+     * @expectedException RuntimeError
      */
     public function testInvalidImageType()
     {
         $lol = '{{ "moooooo"|qrcode(type="lol") }}';
-        $result = $this->processify($lol);
+        $this->processify($lol);
     }
 
     /**
@@ -98,19 +93,22 @@ class QrcodeExtensionTest extends TestCase
     {
         $twig = $this->twigify($template);
         $result = $twig->render('template', $data);
+
         return $result;
     }
 
     /**
-     * @return \Twig_Environment
+     * @return Environment
      */
     private function twigify($template)
     {
-        $loader = new \Twig_Loader_Array(array(
+        $loader = new ArrayLoader(array(
             'template' => $template,
         ));
-        $twig = new \Twig_Environment($loader);
+
+        $twig = new Environment($loader);
         $twig->addExtension(new QrCode());
+
         return $twig;
     }
 }
