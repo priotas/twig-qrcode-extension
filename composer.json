@@ -2,6 +2,7 @@
     "name": "priotas/twig-qrcode-extension",
     "description": "A Twig extension for embedding inline QR codes in Twig templates",
     "type": "library",
+    "version": "1.0",
     "license": "Apache-2.0",
     "keywords": ["qrcode", "twig", "qr-code", "fun"],
     "authors": [{
